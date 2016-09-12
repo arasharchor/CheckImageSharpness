@@ -1,0 +1,42 @@
+* check_sharpness.hdev
+
+* turn off automatic output into the graphics window
+dev_update_window('off')
+
+* close any previously open windows
+dev_close_window()
+
+* read in the dice image
+read_image(imgOriginal, 'image.png')
+
+* convert to grayscale
+rgb1_to_gray(imgOriginal, imgOrigGrayscale)
+
+* get the width and height of the dice image so we can open the window to the correct size in the next line
+get_image_size(imgOrigGrayscale, imageWidth, imageHeight)
+
+* open a window
+dev_open_window(150, 500, imageWidth, imageHeight, 'black', windowHandle)
+
+* show the image
+dev_display(imgOrigGrayscale)
+
+* for comparison, make a blurred image, a very blurred image, and a very very blurred image
+mean_image(imgOrigGrayscale, imgBlurred, 7, 7)
+mean_image(imgBlurred, imgVeryBlurred, 7, 7)
+mean_image(imgVeryBlurred, imgVeryVeryBlurred, 7, 7)
+
+* example from Halcon documentation of checking image sharpness with a Sobel filter
+sobel_amp (imgOrigGrayscale, edgeAmplitude1, 'sum_abs', 7)
+intensity (edgeAmplitude1, edgeAmplitude1, sharpness1, deviation1)
+
+sobel_amp (imgBlurred, edgeAmplitude2, 'sum_abs', 7)
+intensity (edgeAmplitude2, edgeAmplitude2, sharpness2, deviation2)
+
+sobel_amp (imgVeryBlurred, edgeAmplitude3, 'sum_abs', 7)
+intensity (edgeAmplitude3, edgeAmplitude3, sharpness3, deviation3)
+
+sobel_amp (imgVeryVeryBlurred, edgeAmplitude4, 'sum_abs', 7)
+intensity (edgeAmplitude4, edgeAmplitude4, sharpness4, deviation4)
+
+

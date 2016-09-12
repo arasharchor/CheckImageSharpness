@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="12.0.2">
+<procedure name="main">
+<interface/>
+<body>
+<c>* check_sharpness.hdev</c>
+<c></c>
+<c>* turn off automatic output into the graphics window</c>
+<l>dev_update_window('off')</l>
+<c></c>
+<c>* close any previously open windows</c>
+<l>dev_close_window()</l>
+<c></c>
+<c>* read in the dice image</c>
+<l>read_image(imgOriginal, 'image.png')</l>
+<c></c>
+<c>* convert to grayscale</c>
+<l>rgb1_to_gray(imgOriginal, imgOrigGrayscale)</l>
+<c></c>
+<c>* get the width and height of the dice image so we can open the window to the correct size in the next line</c>
+<l>get_image_size(imgOrigGrayscale, imageWidth, imageHeight)</l>
+<c></c>
+<c>* open a window</c>
+<l>dev_open_window(150, 500, imageWidth, imageHeight, 'black', windowHandle)</l>
+<c></c>
+<c>* show the image</c>
+<l>dev_display(imgOrigGrayscale)</l>
+<c></c>
+<c>* for comparison, make a blurred image, a very blurred image, and a very very blurred image</c>
+<l>mean_image(imgOrigGrayscale, imgBlurred, 7, 7)</l>
+<l>mean_image(imgBlurred, imgVeryBlurred, 7, 7)</l>
+<l>mean_image(imgVeryBlurred, imgVeryVeryBlurred, 7, 7)</l>
+<c></c>
+<l>sobel_amp (imgOrigGrayscale, edgeAmplitude1, 'sum_abs', 7)</l>
+<l>intensity (edgeAmplitude1, edgeAmplitude1, sharpness1, deviation1)</l>
+<c></c>
+<l>sobel_amp (imgBlurred, edgeAmplitude2, 'sum_abs', 7)</l>
+<l>intensity (edgeAmplitude2, edgeAmplitude2, sharpness2, deviation2)</l>
+<c></c>
+<l>sobel_amp (imgVeryBlurred, edgeAmplitude3, 'sum_abs', 7)</l>
+<l>intensity (edgeAmplitude3, edgeAmplitude3, sharpness3, deviation3)</l>
+<c></c>
+<l>sobel_amp (imgVeryVeryBlurred, edgeAmplitude4, 'sum_abs', 7)</l>
+<l>intensity (edgeAmplitude4, edgeAmplitude4, sharpness4, deviation4)</l>
+<c></c>
+<c></c>
+<c></c>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>
