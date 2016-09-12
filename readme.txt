@@ -1,0 +1,1 @@
+basic boilerplate code to check image sharpness using the Sobel-Tenengrad method
